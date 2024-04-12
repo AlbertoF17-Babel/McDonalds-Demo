@@ -6,42 +6,40 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.babel.McDonalds.model.Empleado;
-import com.babel.McDonalds.repository.FakeEmpleadoDB;
 import com.babel.McDonalds.repository.IFakeEmpleadoDB;
 
 @Service
 public class EmpleadoService implements IEmpleadoService {
 
-    private final String FakeEmployeeDB = null;
-    private final IFakeEmpleadoDB iFakeEmployeeDB;
+    private final IFakeEmpleadoDB fakeEmpleadoDB;
 
-    public EmpleadoService(IFakeEmpleadoDB iFakeEmployeeDB) {
-        this.iFakeEmployeeDB = iFakeEmployeeDB;
+    public EmpleadoService(IFakeEmpleadoDB fakeEmpleadoDB) {
+        this.fakeEmpleadoDB = fakeEmpleadoDB;
     }
 
-    public void chargeEmployeeList() {
-        this.FakeEmployeeDB.initialEmployeeList();
+    public void inicializarEmpleados() {
+        this.fakeEmpleadoDB.inicializarEmpleados();
     }
 
-    List<Empleado> employeeList = new ArrayList<>();
+    List<Empleado> listaEmpleados = new ArrayList<>();
 
-    public List<Empleado> getAllEmployees() {
-        return employeeList;
+    public List<Empleado> listarEmpleados() {
+        return listaEmpleados;
     }
 
     public void addEmployee(Empleado employee) {
-        boolean exists = employeeList.stream().anyMatch(e -> e.getDni().equals(employee.getDni()));
+        boolean exists = listaEmpleados.stream().anyMatch(e -> e.getDni().equals(employee.getDni()));
         if (!exists) {
-            employeeList.add(employee);
+            listaEmpleados.add(employee);
         }
     }
 
     public void removeEmployee(String dni) {
-        employeeList.removeIf(employee -> employee.getDni().equals(dni));
+        listaEmpleados.removeIf(employee -> employee.getDni().equals(dni));
     }
 
     public Empleado getEmployeeByDNI(String dni) {
-        for (Empleado employee : employeeList ) {
+        for (Empleado employee : listaEmpleados) {
             if (employee.getDni().equals(dni)) {
                 return employee;
             }

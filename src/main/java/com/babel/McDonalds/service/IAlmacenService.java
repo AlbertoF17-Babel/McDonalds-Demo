@@ -8,14 +8,14 @@ import java.util.List;
 
 public interface IAlmacenService {
 
-    void inicializarAlmacen() throws ProductoException;
+    void inicializarAlmacen();
 
-    HashMap<Producto, Integer> obtenerCantidadProducto(int idProducto) throws ProductoException;
+    HashMap<Producto, Integer> obtenerCantidadProducto(int idProducto);
 
     List<Producto> listarProductos();
 
-    void pushProducto(int idProducto) throws ProductoException;
+    void pushProducto(int idProducto);
 
-    void popProducto(int idProducto) throws ProductoException;
+    void popProducto(int idProducto);
 
 }

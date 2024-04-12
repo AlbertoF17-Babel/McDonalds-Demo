@@ -6,7 +6,7 @@ import com.babel.McDonalds.model.Empleado;
 
 public interface IFakeEmpleadoDB {
     
-    void initialEmployeeList();
+    void inicializarEmpleados();
 
-    List<Empleado> employeeList();
+    List<Empleado> listarEmpleados();
 }

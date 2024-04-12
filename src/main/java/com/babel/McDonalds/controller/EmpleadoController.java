@@ -7,17 +7,12 @@ import com.babel.McDonalds.service.EmpleadoService;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-
-
 
 
 @RestController
@@ -25,30 +20,30 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 public class EmpleadoController {
 
-    private final EmpleadoService employeeService;
+    private final EmpleadoService empleadoService;
 
-    public EmpleadoController(EmpleadoService EmployeeService) {
-        this.employeeService = employeeService;
+    public EmpleadoController(EmpleadoService empleadoService) {
+        this.empleadoService = empleadoService;
     }
 
     @GetMapping
-    public List<Empleado> getAllEmployees() {
-        return EmpleadoService.getAllEmployees();
+    public List<Empleado> listarEmpleados() {
+        return empleadoService.listarEmpleados();
     }
     
     @PostMapping("/add")
     public void addEmployee(@RequestBody Empleado employee) {
-        employeeService.addEmployee(employee);
+        empleadoService.addEmployee(employee);
     }
 
-    @DeleteMapping("/remove/{dni}")
+    @DeleteMapping("/{dni}/remove")
     public void removeEmployee(@PathVariable String dni) {
-        employeeService.removeEmployee(dni);
+        empleadoService.removeEmployee(dni);
     }
 
     @GetMapping("/{dni}")
     public Empleado getEmployeeByDNI(@PathVariable String dni) {
-        return employeeService.getEmployeeByDNI(dni);
+        return empleadoService.getEmployeeByDNI(dni);
     }
     
     

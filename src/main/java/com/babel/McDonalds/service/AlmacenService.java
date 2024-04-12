@@ -21,7 +21,7 @@ public class AlmacenService implements IAlmacenService {
     }
 
     @Override
-    public void inicializarAlmacen() throws ProductoException {
+    public void inicializarAlmacen(){
         List<Producto> listaProductos = this.productoDB.inicializarProductos();
         this.almacenDB.inicializarAlmacen();
         for (Producto producto : listaProductos) {
@@ -30,7 +30,7 @@ public class AlmacenService implements IAlmacenService {
     }
 
     @Override
-    public HashMap<Producto, Integer> obtenerCantidadProducto(int idProducto) throws ProductoException {
+    public HashMap<Producto, Integer> obtenerCantidadProducto(int idProducto){
         try {
             return this.almacenDB.obtenerCantidadProducto(idProducto);
         } catch (ProductoException e){
@@ -59,7 +59,7 @@ public class AlmacenService implements IAlmacenService {
     }
 
     @Override
-    public void popProducto(int idProducto) throws ProductoException {
+    public void popProducto(int idProducto){
         try{
             HashMap<Producto, Integer> productoCantidad = obtenerCantidadProducto(idProducto);
             if (productoCantidad != null) {
