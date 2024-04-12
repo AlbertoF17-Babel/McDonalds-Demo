@@ -2,13 +2,11 @@ package com.babel.McDonalds.InitConfig;
 import com.babel.McDonalds.service.IAlmacenService;
 import com.babel.McDonalds.service.IEmpleadoService;
 import org.springframework.boot.ApplicationArguments;
-
 import org.springframework.boot.ApplicationRunner;
-
 import org.springframework.stereotype.Component;
 
 @Component
-public class InitConfig {
+public class InitConfig implements ApplicationRunner{
 
     IAlmacenService almacenService;
     IEmpleadoService empleadoService;
