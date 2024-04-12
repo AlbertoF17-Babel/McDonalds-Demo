@@ -40,21 +40,23 @@ public class AlmacenService implements IAlmacenService {
     }
 
     @Override
-    public void pushProducto(int idProducto) {
+    public void pushProducto(int idProducto) throws ProductoException {
         HashMap<Producto, Integer> productoCantidad = obtenerCantidadProducto(idProducto);
         if (productoCantidad != null) {
             int cantidadProducto = productoCantidad.get(idProducto)+1;
             this.almacenDB.updateProducto(idProducto, cantidadProducto);
+        } else {
+            throw new ProductoException("El producto con ID " + idProducto + " no existe");
         }
     }
 
     @Override
-    public void popProducto(int idProducto) throws NoSuchElementException {
+    public void popProducto(int idProducto) throws ProductoException {
         HashMap<Producto, Integer> productoCantidad = obtenerCantidadProducto(idProducto);
         if (productoCantidad != null) {
             int cantidadProducto = productoCantidad.get(idProducto);
             if (cantidadProducto == 0) {
-                throw new NoSuchElementException("El producto con ID " + idProducto + " no está en stock");
+                throw new ProductoException("El producto con ID " + idProducto + " no está en stock");
             } else {
                 cantidadProducto--;
                 this.almacenDB.updateProducto(idProducto, cantidadProducto);

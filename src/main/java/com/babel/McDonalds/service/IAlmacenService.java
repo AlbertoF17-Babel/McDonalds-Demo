@@ -13,8 +13,8 @@ public interface IAlmacenService {
 
     List<Producto> listarProductos();
 
-    void pushProducto(int idProducto);
+    void pushProducto(int idProducto) throws ProductoException;
 
-    void popProducto(int idProducto);
+    void popProducto(int idProducto) throws ProductoException;
 
 }
