@@ -1,5 +1,6 @@
 package com.babel.McDonalds.repository;
 
+import com.babel.McDonalds.Exceptions.ProductoException;
 import com.babel.McDonalds.model.Producto;
 import org.springframework.stereotype.Repository;
 
@@ -43,15 +44,13 @@ public class FakeProductoDB implements IFakeProductoDB {
     }
 
     @Override
-    public Producto encontrarProducto(int idProducto) {
+    public Producto encontrarProducto(int idProducto) throws ProductoException {
         for (Producto producto : listaProductos) {
             if (producto.getIdProducto() == idProducto){
                 return producto;
-            } else {
-                throw new NoSuchElementException("No existe ningún producto con este id");
             }
         }
-        return null;
+        throw new ProductoException("No existe ningún producto con este id");
     }
 
 
