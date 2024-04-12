@@ -56,7 +56,6 @@ public class PedidosService implements IPedidosService{
 
     @Override
     public Pedido finalizarPedido(Integer idPedido) {
-
         try {
             Pedido pedido = fakePedidosDB.findPedidoById(idPedido);
             pedido.setPedidoFinalizado(true);
