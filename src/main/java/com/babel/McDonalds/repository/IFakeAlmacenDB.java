@@ -12,4 +12,6 @@ public interface IFakeAlmacenDB {
     public void updateProducto(int idProducto, int nuevaCantidad);
 
     public HashMap<Producto, Integer> obtenerCantidadProducto(int idProducto) throws ProductoException;
+
+    public HashMap<String, Integer> obtenerNombreYCantidadProducto(int idProducto) throws ProductoException;
 }

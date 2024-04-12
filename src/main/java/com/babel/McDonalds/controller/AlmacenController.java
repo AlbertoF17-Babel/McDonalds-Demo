@@ -5,6 +5,7 @@ import com.babel.McDonalds.model.Producto;
 import com.babel.McDonalds.service.IAlmacenService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -22,19 +23,21 @@ public class AlmacenController {
         return almacenService.listarProductos();
     }
 
-    @GetMapping(value = "/product/{idProducto}")
-    public void obtenerCantidadProducto(@PathVariable int idProducto) {
-        almacenService.obtenerCantidadProducto(idProducto);
+    @PostMapping(value = "/product/{idProducto}")
+    public HashMap<String, Integer> obtenerCantidadProducto(@PathVariable int idProducto) {
+        return almacenService.obtenerNombreYCantidadProducto(idProducto);
     }
 
-    @GetMapping(value = "/push/{idProducto}")
-    public void pushProducto(@PathVariable int idProducto) {
+    @PostMapping(value = "/push/{idProducto}")
+    public int pushProducto(@PathVariable int idProducto) {
         almacenService.pushProducto(idProducto);
+        return 1;
     }
 
-    @GetMapping(value = "/pop/{idProducto}")
-    public void popProducto(@PathVariable int idProducto) {
+    @PostMapping(value = "/pop/{idProducto}")
+    public int popProducto(@PathVariable int idProducto) {
         almacenService.popProducto(idProducto);
+        return 1;
     }
 
 }

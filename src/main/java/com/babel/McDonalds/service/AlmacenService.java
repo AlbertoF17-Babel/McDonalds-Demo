@@ -22,17 +22,22 @@ public class AlmacenService implements IAlmacenService {
 
     @Override
     public void inicializarAlmacen(){
-        List<Producto> listaProductos = this.productoDB.inicializarProductos();
         this.almacenDB.inicializarAlmacen();
-        for (Producto producto : listaProductos) {
-            pushProducto(producto.getIdProducto());
-        }
     }
 
     @Override
     public HashMap<Producto, Integer> obtenerCantidadProducto(int idProducto){
         try {
             return this.almacenDB.obtenerCantidadProducto(idProducto);
+        } catch (ProductoException e){
+            return null;
+        }
+    }
+
+    @Override
+    public HashMap<String, Integer> obtenerNombreYCantidadProducto(int idProducto){
+        try {
+            return this.almacenDB.obtenerNombreYCantidadProducto(idProducto);
         } catch (ProductoException e){
             return null;
         }
@@ -47,8 +52,9 @@ public class AlmacenService implements IAlmacenService {
     public void pushProducto(int idProducto) {
         try {
             HashMap<Producto, Integer> productoCantidad = obtenerCantidadProducto(idProducto);
-            if (productoCantidad != null) {
-                int cantidadProducto = productoCantidad.get(idProducto) + 1;
+            Producto producto = this.productoDB.encontrarProducto(idProducto);
+            if (producto != null) {
+                int cantidadProducto = productoCantidad.get(producto) + 1;
                 this.almacenDB.updateProducto(idProducto, cantidadProducto);
             } else {
                 throw new ProductoException("El producto con ID " + idProducto + " no existe");
@@ -62,8 +68,9 @@ public class AlmacenService implements IAlmacenService {
     public void popProducto(int idProducto){
         try{
             HashMap<Producto, Integer> productoCantidad = obtenerCantidadProducto(idProducto);
+            Producto producto = this.productoDB.encontrarProducto(idProducto);
             if (productoCantidad != null) {
-                int cantidadProducto = productoCantidad.get(idProducto);
+                int cantidadProducto = productoCantidad.get(producto);
                 if (cantidadProducto == 0) {
                     throw new ProductoException("El producto con ID " + idProducto + " no está en stock");
                 } else {

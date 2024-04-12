@@ -12,6 +12,8 @@ public interface IAlmacenService {
 
     HashMap<Producto, Integer> obtenerCantidadProducto(int idProducto);
 
+    public HashMap<String, Integer> obtenerNombreYCantidadProducto(int idProducto);
+
     List<Producto> listarProductos();
 
     void pushProducto(int idProducto);
