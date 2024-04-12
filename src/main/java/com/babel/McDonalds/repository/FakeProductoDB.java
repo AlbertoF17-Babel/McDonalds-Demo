@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Repository
 public class FakeProductoDB implements IFakeProductoDB {
@@ -40,5 +41,18 @@ public class FakeProductoDB implements IFakeProductoDB {
     public List<Producto> listarProductos() {
         return listaProductos;
     }
+
+    @Override
+    public Producto encontrarProducto(int idProducto) {
+        for (Producto producto : listaProductos) {
+            if (producto.getIdProducto() == idProducto){
+                return producto;
+            } else {
+                throw new NoSuchElementException("No existe ningún producto con este id");
+            }
+        }
+        return null;
+    }
+
 
 }

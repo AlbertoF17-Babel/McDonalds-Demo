@@ -8,5 +8,7 @@ public interface IFakeProductoDB {
 
     public List<Producto> inicializarProductos();
 
-    List<Producto> listarProductos();
+    public List<Producto> listarProductos();
+
+    public Producto encontrarProducto(int idProducto);
 }
