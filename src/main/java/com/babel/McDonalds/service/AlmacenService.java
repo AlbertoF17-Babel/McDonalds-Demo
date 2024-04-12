@@ -47,7 +47,7 @@ public class AlmacenService implements IAlmacenService {
     public void pushProducto(int idProducto) {
         try {
             HashMap<Producto, Integer> productoCantidad = obtenerCantidadProducto(idProducto);
-            if (productoCantidad != null && productoCantidad.containsKey(idProducto)) {
+            if (productoCantidad != null) {
                 int cantidadProducto = productoCantidad.get(idProducto) + 1;
                 this.almacenDB.updateProducto(idProducto, cantidadProducto);
             } else {
