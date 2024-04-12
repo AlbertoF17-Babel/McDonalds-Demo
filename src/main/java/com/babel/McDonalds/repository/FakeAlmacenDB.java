@@ -1,5 +1,6 @@
 package com.babel.McDonalds.repository;
 
+import com.babel.McDonalds.Exceptions.ProductoException;
 import com.babel.McDonalds.model.Producto;
 import org.springframework.stereotype.Repository;
 
@@ -26,7 +27,7 @@ public class FakeAlmacenDB implements IFakeAlmacenDB{
     }
 
     @Override
-    public HashMap<Producto, Integer> obtenerCantidadProducto(int idProducto) {
+    public HashMap<Producto, Integer> obtenerCantidadProducto(int idProducto) throws ProductoException {
         HashMap<Producto, Integer> productoEncontrado = new HashMap<>();
         for (HashMap.Entry<Producto, Integer> entry : almacen.entrySet()) {
             Producto producto = entry.getKey();
@@ -35,7 +36,7 @@ public class FakeAlmacenDB implements IFakeAlmacenDB{
                 return productoEncontrado;
             }
         }
-        return null;
+        throw new ProductoException("El producto con el id " + idProducto + " no existe");
     }
 
 }

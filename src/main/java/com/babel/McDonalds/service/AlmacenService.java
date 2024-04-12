@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @Service
 public class AlmacenService implements IAlmacenService {
@@ -22,7 +21,7 @@ public class AlmacenService implements IAlmacenService {
     }
 
     @Override
-    public void inicializarAlmacen() {
+    public void inicializarAlmacen() throws ProductoException {
         List<Producto> listaProductos = this.productoDB.inicializarProductos();
         this.almacenDB.inicializarAlmacen();
         for (Producto producto : listaProductos) {
@@ -31,8 +30,12 @@ public class AlmacenService implements IAlmacenService {
     }
 
     @Override
-    public HashMap<Producto, Integer> obtenerCantidadProducto(int idProducto) {
-        return this.almacenDB.obtenerCantidadProducto(idProducto);
+    public HashMap<Producto, Integer> obtenerCantidadProducto(int idProducto) throws ProductoException {
+        try {
+            return this.almacenDB.obtenerCantidadProducto(idProducto);
+        } catch (ProductoException e){
+            return null;
+        }
     }
 
     @Override
@@ -41,27 +44,35 @@ public class AlmacenService implements IAlmacenService {
     }
 
     @Override
-    public void pushProducto(int idProducto) throws ProductoException {
-        HashMap<Producto, Integer> productoCantidad = obtenerCantidadProducto(idProducto);
-        if (productoCantidad != null) {
-            int cantidadProducto = productoCantidad.get(idProducto)+1;
-            this.almacenDB.updateProducto(idProducto, cantidadProducto);
-        } else {
-            throw new ProductoException("El producto con ID " + idProducto + " no existe");
+    public void pushProducto(int idProducto) {
+        try {
+            HashMap<Producto, Integer> productoCantidad = obtenerCantidadProducto(idProducto);
+            if (productoCantidad != null && productoCantidad.containsKey(idProducto)) {
+                int cantidadProducto = productoCantidad.get(idProducto) + 1;
+                this.almacenDB.updateProducto(idProducto, cantidadProducto);
+            } else {
+                throw new ProductoException("El producto con ID " + idProducto + " no existe");
+            }
+        } catch (ProductoException e) {
+            System.out.println(e.getMessage());
         }
     }
 
     @Override
     public void popProducto(int idProducto) throws ProductoException {
-        HashMap<Producto, Integer> productoCantidad = obtenerCantidadProducto(idProducto);
-        if (productoCantidad != null) {
-            int cantidadProducto = productoCantidad.get(idProducto);
-            if (cantidadProducto == 0) {
-                throw new ProductoException("El producto con ID " + idProducto + " no está en stock");
-            } else {
-                cantidadProducto--;
-                this.almacenDB.updateProducto(idProducto, cantidadProducto);
+        try{
+            HashMap<Producto, Integer> productoCantidad = obtenerCantidadProducto(idProducto);
+            if (productoCantidad != null) {
+                int cantidadProducto = productoCantidad.get(idProducto);
+                if (cantidadProducto == 0) {
+                    throw new ProductoException("El producto con ID " + idProducto + " no está en stock");
+                } else {
+                    cantidadProducto--;
+                    this.almacenDB.updateProducto(idProducto, cantidadProducto);
+                }
             }
+        } catch (ProductoException e) {
+            System.out.println("El producto con ID " + idProducto + " no existe");
         }
     }
 
