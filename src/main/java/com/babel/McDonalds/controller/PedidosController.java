@@ -31,22 +31,26 @@ public class PedidosController {
     public Pedido getPedidoById (@PathVariable Integer orderId) {
         return pedidosService.getPedido(orderId);
     }
+
+    @PostMapping(path = "/{orderID}")
+    public Pedido finalizarPedido (@PathVariable Integer idPedido) {
+        return pedidosService.finalizarPedido(idPedido);
+    }
+
     @GetMapping(path = "/{orderId}/products")
     public List<Producto> getProductosByPedido (@PathVariable Integer orderId) {
        return pedidosService.getProductos(orderId);
     }
-    @PostMapping(path = "/{orderId}/product/{productId}")
-    public Pedido editarPedido (@PathVariable Integer orderId, @PathVariable int idProducto) {
-        return pedidosService.addProductoPedido(orderId, idProducto);
+
+    @PostMapping(path = "/{orderId}/products/{productId}")
+    public Pedido editarPedido (@PathVariable Integer orderId, @PathVariable int productId) {
+        return pedidosService.addProductoPedido(orderId, productId);
     }
 
-    @PutMapping(path = "/{orderId}/assignEmployee")
-    public Pedido editarPedido (@PathVariable Integer idPedido, @PathVariable String empleadoDni) {
-        return pedidosService.asignarEmpleadoPedido(idPedido, empleadoDni);
+    @PutMapping(path = "/{orderId}/employee/{employeeDni}")
+    public Pedido editarPedido (@PathVariable Integer orderId, @PathVariable String employeeDni) {
+        return pedidosService.asignarEmpleadoPedido(orderId, employeeDni);
     }
 
-    @PostMapping(path = "/{orderID}/close/")
-    public Pedido finalizarPedido (@PathVariable Integer idPedido) {
-        return pedidosService.finalizarPedido(idPedido);
-    }
+
 }
