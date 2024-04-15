@@ -16,10 +16,12 @@ public class FakePedidosDB implements IFakePedidosDB {
         this.pedidoRepository = new ArrayList<>();
     }
 
+    @Override
     public List<Pedido> getPedidos() {
         return pedidoRepository;
     }
 
+    @Override
     public Pedido crearNuevoPedido() {
         lastId++;
         Pedido pedido = new Pedido(lastId);
@@ -27,6 +29,7 @@ public class FakePedidosDB implements IFakePedidosDB {
         return pedido;
     }
 
+    @Override
     public Pedido findPedidoById (Integer pedidoId) throws PedidoException {
         for(Pedido pedido : pedidoRepository) {
             if (pedido.getId().equals(pedidoId)) {
