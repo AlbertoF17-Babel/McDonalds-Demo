@@ -7,7 +7,9 @@ import com.babel.McDonalds.model.Producto;
 import java.util.List;
 
 public interface IPedidosService {
+
     List<Pedido> getPedidos ();
+
     Pedido getPedido (Integer orderId);
 
     Integer crearPedido ();

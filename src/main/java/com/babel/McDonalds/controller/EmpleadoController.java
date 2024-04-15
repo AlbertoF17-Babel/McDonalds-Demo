@@ -32,13 +32,15 @@ public class EmpleadoController {
     }
     
     @PostMapping("/add")
-    public void addEmployee(@RequestBody Empleado employee) {
+    public int addEmployee(@RequestBody Empleado employee) {
         empleadoService.addEmployee(employee);
+        return 1;
     }
 
     @DeleteMapping("/{dni}/remove")
-    public void removeEmployee(@PathVariable String dni) {
+    public int removeEmployee(@PathVariable String dni) {
         empleadoService.removeEmployee(dni);
+        return 1;
     }
 
     @GetMapping("/{dni}")

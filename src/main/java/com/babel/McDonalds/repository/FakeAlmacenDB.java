@@ -28,12 +28,7 @@ public class FakeAlmacenDB implements IFakeAlmacenDB{
 
     @Override
     public void updateProducto(int idProducto, int nuevaCantidad) {
-        for (HashMap.Entry<Producto, Integer> entry : almacen.entrySet()) {
-            Producto producto = entry.getKey();
-            if (producto.getIdProducto() == idProducto) {
-                entry.setValue(nuevaCantidad);
-            }
-        }
+        almacen.put(new Producto(idProducto), nuevaCantidad);
     }
 
     @Override
