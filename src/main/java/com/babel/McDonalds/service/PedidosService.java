@@ -62,6 +62,9 @@ public class PedidosService implements IPedidosService{
     public Pedido addProductoPedido(Integer idPedido, int idProducto){
         try {
             Pedido pedido = fakePedidosDB.findPedidoById(idPedido);
+            if (pedido.isPedidoFinalizado()) {
+                return null;
+            }
             Producto producto = fakeProductoDB.encontrarProducto(idProducto);
             almacenService.popProducto(idProducto);
             fakePedidosDB.addProducto(pedido, producto);
@@ -75,6 +78,10 @@ public class PedidosService implements IPedidosService{
     public Pedido asignarEmpleadoPedido(Integer idPedido, String empleadoDni) {
         try {
             Pedido pedido = fakePedidosDB.findPedidoById(idPedido);
+            if (pedido.isPedidoFinalizado()) {
+                return null;
+            }
+            System.out.println(empleadoService.getEmployeeByDNI(empleadoDni));
             pedido.setEmpleadoAsignado(empleadoService.getEmployeeByDNI(empleadoDni));
             return pedido;
         } catch (PedidoException e) {
@@ -86,6 +93,9 @@ public class PedidosService implements IPedidosService{
     public Pedido finalizarPedido(Integer idPedido) {
         try {
             Pedido pedido = fakePedidosDB.findPedidoById(idPedido);
+            if (pedido.isPedidoFinalizado()) {
+                return null;
+            }
             pedido.setPedidoFinalizado(true);
             return pedido;
         } catch (PedidoException e) {
