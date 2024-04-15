@@ -35,8 +35,8 @@ public class PedidosController {
     public List<Producto> getProductosByPedido (@PathVariable Integer orderId) {
        return pedidosService.getProductos(orderId);
     }
-    @PostMapping(path = "/{orderId}/products")
-    public Pedido editarPedido (@PathVariable Integer orderId, @RequestBody int idProducto) {
+    @PostMapping(path = "/{orderId}/product/{productId}")
+    public Pedido editarPedido (@PathVariable Integer orderId, @PathVariable int idProducto) {
         return pedidosService.addProductoPedido(orderId, idProducto);
     }
 
