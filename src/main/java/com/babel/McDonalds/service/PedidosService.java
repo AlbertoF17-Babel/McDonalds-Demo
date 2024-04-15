@@ -6,6 +6,7 @@ import com.babel.McDonalds.model.Empleado;
 import com.babel.McDonalds.model.Pedido;
 import com.babel.McDonalds.model.Producto;
 import com.babel.McDonalds.repository.IFakeAlmacenDB;
+import com.babel.McDonalds.repository.IFakeEmpleadoDB;
 import com.babel.McDonalds.repository.IFakePedidosDB;
 import com.babel.McDonalds.repository.IFakeProductoDB;
 import org.springframework.stereotype.Service;
@@ -18,19 +19,40 @@ public class PedidosService implements IPedidosService{
     private final IFakePedidosDB fakePedidosDB;
     private final IFakeAlmacenDB fakeAlmacenDB;
     private final IFakeProductoDB fakeProductoDB;
+    private final IFakeEmpleadoDB fakeEmpleadoDB;
     private final IAlmacenService almacenService;
+    private final IEmpleadoService empleadoService;
 
-    public PedidosService (IFakePedidosDB fakePedidosDB, IFakeAlmacenDB fakeAlmacenDB, IFakeProductoDB fakeProductoDB, IAlmacenService almacenService) {
+    public PedidosService (IFakePedidosDB fakePedidosDB, IFakeAlmacenDB fakeAlmacenDB, IFakeProductoDB fakeProductoDB,
+                           IFakeEmpleadoDB fakeEmpleadoDB, IAlmacenService almacenService, IEmpleadoService empleadoService) {
         this.fakePedidosDB = fakePedidosDB;
         this.fakeAlmacenDB = fakeAlmacenDB;
         this.fakeProductoDB = fakeProductoDB;
+        this.fakeEmpleadoDB = fakeEmpleadoDB;
         this.almacenService = almacenService;
+        this.empleadoService = empleadoService;
     }
     @Override
     public List<Pedido> getPedidos() {
         return fakePedidosDB.getPedidos();
     }
 
+    public Pedido getPedido(Integer idPedido) {
+        try {
+            return fakePedidosDB.findPedidoById(idPedido);
+        } catch (PedidoException e) {
+            return null;
+        }
+    }
+
+    public List<Producto> getProductos(Integer idPedido) {
+        try {
+            Pedido pedido = fakePedidosDB.findPedidoById(idPedido);
+            return pedido.getProductos();
+        } catch (PedidoException e) {
+            return null;
+        }
+    }
     @Override
     public Integer crearPedido() {
         return fakePedidosDB.crearNuevoPedido().getId();
@@ -50,8 +72,14 @@ public class PedidosService implements IPedidosService{
     }
 
     @Override
-    public Pedido asignarEmpleadoPedido(Empleado empleado) {
-        return null;
+    public Pedido asignarEmpleadoPedido(Integer idPedido, String empleadoDni) {
+        try {
+            Pedido pedido = fakePedidosDB.findPedidoById(idPedido);
+            pedido.setEmpleadoAsignado(empleadoService.getEmployeeByDNI(empleadoDni));
+            return pedido;
+        } catch (PedidoException e) {
+            return null;
+        }
     }
 
     @Override

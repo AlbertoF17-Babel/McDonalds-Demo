@@ -17,27 +17,35 @@ public class PedidosController {
         this.pedidosService = pedidosService;
     }
 
-    @GetMapping(path = "/all")
+    @GetMapping
     public List<Pedido> getListadoDePedidos () {
         return pedidosService.getPedidos();
     }
 
-    @PostMapping(path = "/newOrder")
+    @PostMapping
     public Integer crearPedido () {
         return pedidosService.crearPedido();
     }
 
-    @PutMapping(path = "/{orderId}/addProducts")
+    @GetMapping(path = "/{orderId}")
+    public Pedido getPedidoById (@PathVariable Integer orderId) {
+        return pedidosService.getPedido(orderId);
+    }
+    @GetMapping(path = "/{orderId}/products")
+    public List<Producto> getProductosByPedido (@PathVariable Integer orderId) {
+       return pedidosService.getProductos(orderId);
+    }
+    @PostMapping(path = "/{orderId}/products")
     public Pedido editarPedido (@PathVariable Integer orderId, @RequestBody int idProducto) {
         return pedidosService.addProductoPedido(orderId, idProducto);
     }
 
     @PutMapping(path = "/{orderId}/assignEmployee")
-    public Pedido editarPedido (@PathVariable Integer orderID, @RequestBody Empleado empleado) {
-        return pedidosService.asignarEmpleadoPedido(empleado);
+    public Pedido editarPedido (@PathVariable Integer idPedido, @PathVariable String empleadoDni) {
+        return pedidosService.asignarEmpleadoPedido(idPedido, empleadoDni);
     }
 
-    @PutMapping(path = "/{orderID}/close/")
+    @PostMapping(path = "/{orderID}/close/")
     public Pedido finalizarPedido (@PathVariable Integer idPedido) {
         return pedidosService.finalizarPedido(idPedido);
     }
