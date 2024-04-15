@@ -22,7 +22,9 @@ public class FakePedidosDB implements IFakePedidosDB {
 
     public Pedido crearNuevoPedido() {
         lastId++;
-        return new Pedido(lastId);
+        Pedido pedido = new Pedido(lastId);
+        pedidoRepository.add(pedido);
+        return pedido;
     }
 
     public Pedido findPedidoById (Integer pedidoId) throws PedidoException {

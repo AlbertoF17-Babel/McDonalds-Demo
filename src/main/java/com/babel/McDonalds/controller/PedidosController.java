@@ -48,7 +48,7 @@ public class PedidosController {
     }
 
     @PutMapping(path = "/{orderId}/employee/{employeeDni}")
-    public Pedido editarPedido (@PathVariable Integer orderId, @PathVariable String employeeDni) {
+    public Pedido addEmpleado (@PathVariable Integer orderId, @PathVariable String employeeDni) {
         return pedidosService.asignarEmpleadoPedido(orderId, employeeDni);
     }
 

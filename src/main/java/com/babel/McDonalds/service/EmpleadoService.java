@@ -40,7 +40,7 @@ public class EmpleadoService implements IEmpleadoService {
 
     public Empleado getEmployeeByDNI(String dni) {
         for (Empleado employee : listaEmpleados) {
-            if (employee.getDni().equals(dni)) {
+            if (employee.getDni().equalsIgnoreCase(dni)) {
                 return employee;
             }
         }
