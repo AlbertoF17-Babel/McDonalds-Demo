@@ -33,8 +33,8 @@ public class PedidosController {
     }
 
     @PostMapping(path = "/{orderID}")
-    public Pedido finalizarPedido (@PathVariable Integer idPedido) {
-        return pedidosService.finalizarPedido(idPedido);
+    public Pedido finalizarPedido (@PathVariable Integer orderID) {
+        return pedidosService.finalizarPedido(orderID);
     }
 
     @GetMapping(path = "/{orderId}/products")

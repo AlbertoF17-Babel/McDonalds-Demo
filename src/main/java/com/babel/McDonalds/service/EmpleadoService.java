@@ -21,25 +21,25 @@ public class EmpleadoService implements IEmpleadoService {
         this.fakeEmpleadoDB.inicializarEmpleados();
     }
 
-    List<Empleado> listaEmpleados = new ArrayList<>();
+    //List<Empleado> listaEmpleados = new ArrayList<>();
 
     public List<Empleado> listarEmpleados() {
         return this.fakeEmpleadoDB.listarEmpleados();
     }
 
     public void addEmployee(Empleado employee) {
-        boolean exists = listaEmpleados.stream().anyMatch(e -> e.getDni().equals(employee.getDni()));
+        boolean exists = fakeEmpleadoDB.listarEmpleados().stream().anyMatch(e -> e.getDni().equals(employee.getDni()));
         if (!exists) {
-            listaEmpleados.add(employee);
+            fakeEmpleadoDB.listarEmpleados().add(employee);
         }
     }
 
     public void removeEmployee(String dni) {
-        listaEmpleados.removeIf(employee -> employee.getDni().equals(dni));
+        fakeEmpleadoDB.listarEmpleados().removeIf(employee -> employee.getDni().equals(dni));
     }
 
     public Empleado getEmployeeByDNI(String dni) {
-        for (Empleado employee : listaEmpleados) {
+        for (Empleado employee : fakeEmpleadoDB.listarEmpleados()) {
             if (employee.getDni().equalsIgnoreCase(dni)) {
                 return employee;
             }
