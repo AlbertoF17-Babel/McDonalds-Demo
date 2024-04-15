@@ -5,8 +5,8 @@ import java.util.List;
 import com.babel.McDonalds.model.Empleado;
 
 public interface IFakeEmpleadoDB {
-    
-    void inicializarEmpleados();
+
+    List<Empleado> inicializarEmpleados();
 
     List<Empleado> listarEmpleados();
 }

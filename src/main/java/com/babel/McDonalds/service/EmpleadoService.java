@@ -24,7 +24,7 @@ public class EmpleadoService implements IEmpleadoService {
     List<Empleado> listaEmpleados = new ArrayList<>();
 
     public List<Empleado> listarEmpleados() {
-        return listaEmpleados;
+        return this.fakeEmpleadoDB.listarEmpleados();
     }
 
     public void addEmployee(Empleado employee) {
