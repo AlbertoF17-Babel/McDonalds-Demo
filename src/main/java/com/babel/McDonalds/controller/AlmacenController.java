@@ -20,7 +20,7 @@ public class AlmacenController {
     }
 
     @GetMapping
-    @Operation(summary = "Muestra todos los productos disponibles en el almacén")
+    @Operation(summary = "Muestra todos los productos disponibles en el almacén, con su ID y su precio")
     public List<Producto> listarProductos() {
         return almacenService.listarProductos();
     }
