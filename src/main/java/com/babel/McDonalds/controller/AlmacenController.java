@@ -26,20 +26,20 @@ public class AlmacenController {
     }
 
     @PostMapping(value = "/product/{idProducto}")
-    @Operation(summary = "Muestra el producto según el ID y sus datos")
+    @Operation(summary = "Muestra el producto según el ID y su stock en el almacén")
     public HashMap<String, Integer> obtenerCantidadProducto(@PathVariable int idProducto) {
         return almacenService.obtenerNombreYCantidadProducto(idProducto);
     }
 
     @PostMapping(value = "/push/{idProducto}")
-    @Operation(summary = "Añade una unidad del producto según su ID al almacén")
+    @Operation(summary = "Añade una unidad al stock del producto según su ID al almacén")
     public int pushProducto(@PathVariable int idProducto) {
         almacenService.pushProducto(idProducto);
         return 1;
     }
 
     @PostMapping(value = "/pop/{idProducto}")
-    @Operation(summary = "Retira una unidad del producto según su ID al almacén")
+    @Operation(summary = "Resta una unidad al stock del producto según su ID al almacén")
     public int popProducto(@PathVariable int idProducto) {
         almacenService.popProducto(idProducto);
         return 1;
