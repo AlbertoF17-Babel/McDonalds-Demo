@@ -5,6 +5,7 @@ import com.babel.McDonalds.model.Empleado;
 import com.babel.McDonalds.model.Pedido;
 import com.babel.McDonalds.model.Producto;
 import com.babel.McDonalds.service.IPedidosService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,6 +19,7 @@ public class PedidosController {
     }
 
     @GetMapping
+    @Operation(summary = "Listado productos")
     public List<Pedido> getListadoDePedidos () {
         return pedidosService.getPedidos();
     }
