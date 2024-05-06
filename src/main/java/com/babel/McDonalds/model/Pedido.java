@@ -1,6 +1,7 @@
 package com.babel.McDonalds.model;
 
 import com.babel.McDonalds.service.IPedidosService;
+import io.swagger.v3.oas.annotations.media.Schema;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -9,9 +10,14 @@ import java.util.List;
 
 public class Pedido {
 
+    @Schema(description = "Identificador del producto")
     private Integer id;
+
+    @Schema(description = "Empleado asignado")
     private Empleado empleadoAsignado;
+    @Schema(description = "Lista de productos")
     private List<Producto> productos;
+    @Schema(description = "Boolean pedido finalizado")
     private boolean pedidoFinalizado;
 
     public Pedido() {
